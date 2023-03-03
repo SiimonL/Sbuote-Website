@@ -7,11 +7,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sbuotes Database</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <script defer src="./login.js"></script>
 </head>
 
 <body>
-    <h1>LOGIN PAGE</h1>
+    <header>
+        <div></div>
+        <h1>Sbuotes Database</h1>
+        <div></div>
+    </header>
+    <div class="content">
+        <form autocomplete="off" class="login-form" id="login-form">
+            <p class="label">Username</p>
+            <input name="user" type="text" id="username" placeholder="username" pattern="[a-zA-Z1-9]+" minlength="3"
+                maxlength="15" required>
+            <p class="username error" id="username-error"></p>
+            <p class="label">Password</p>
+            <input name="pass" type="password" id="password" placeholder="password" pattern="[a-zA-Z1-9]+" minlength="6"
+                maxlength="18" required>
+            <p class="password error" id="password-error"></p>
+
+            <div class="submit-container">
+                <button type="submit" class="submit button" id="submit-button">Log In</button>
+                <p id="login-error" class="error"></p>
+            </div>
+        </form>
+
+
+    </div>
 </body>
 
 </html>

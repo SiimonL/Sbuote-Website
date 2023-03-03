@@ -34,33 +34,29 @@
     <div class="content">
         <div class="search" id="search">
             <form autocomplete="off" class="search-form" id="search-form">
-                <div class="keywords-div" id="keywords-div">
-                    <div class="selected-keywords" id="selected-keywords"></div>
-                    <p class="keywords label">Filter by Keyword</p>
-                    <div class="keyword-searchbar">
-                        <input name="keywords" type="text" placeholder="Search..." id="keywords" list="all-keywords"
-                            pattern="[a-zA-Z]+">
-                        <div class="search icon-right" id="search-icon"></div>
-                    </div>
+                <div class="selected-keywords" id="selected-keywords"></div>
+                <p class="label">Filter by Keyword</p>
+                <div class="keyword-searchbar">
+                    <input name="keywords" type="text" placeholder="Search..." id="keywords" list="all-keywords"
+                        pattern="[a-zA-Z]+" maxlength="17">
+                    <div class="search icon-right" id="search-icon"></div>
                 </div>
-                <div class="sorting-div">
-                    <p class="label sorting">Sorting</p>
-                    <select name="sort" id="sort" class="sorting">
-                        <option value="best" selected>Best Match</option>
-                        <option value="likes">Likes</option>
-                        <option value="new">Newest</option>
-                        <option value="old">Oldest</option>
-                    </select>
-                </div>
-                <div class="exta-div">
-                    <p class="transcript label">
-                        Additional words
-                        <em style="font-size: 1rem;">Optional</em>
-                    </p>
-                    <input name="extra" type="text" id="transcript" pattern="[a-zA-Z\s]*">
-                </div>
+                <p class="label">Sorting</p>
+                <select name="sort" id="sort" class="sorting">
+                    <option value="best" selected>Best Match</option>
+                    <option value="likes">Likes</option>
+                    <option value="new">Newest</option>
+                    <option value="old">Oldest</option>
+                </select>
+                <p class="label">
+                    Additional words
+                    <em style="font-size: 1rem;">Optional</em>
+                </p>
+                <input name="extra" type="text" id="transcript" pattern="[a-zA-Z\s]*">
 
-                <button type="submit" class="submit" id="form-submit">Search</button>
+                <div class="submit-container">
+                    <button type="submit" class="submit button" id="form-submit">Search</button>
+                </div>
             </form>
 
         </div>
@@ -83,10 +79,10 @@
                 </div>
                 <div class="card-bottom">
                     <div class="card-buttons">
-                        <a class="open-image icon-left"
+                        <a class="open-image icon-left button"
                             href="https://cdn.discordapp.com/attachments/1015758452016029756/1077484076132470814/image.png"
                             target="_blank"></a>
-                        <button class="copy-link icon-left"></button>
+                        <button class="copy-link icon-left button"></button>
                     </div>
                     <p class="date">2023/02/21</p>
                 </div>
