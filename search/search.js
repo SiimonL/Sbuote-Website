@@ -1,62 +1,22 @@
-function copyToClipboard(text) {
-    let successful = false
-    navigator.clipboard.writeText(text).then(() => {
-        successful = true;
-    }, () => {
-        successful = false;
-    });
-    return successful;
-}
-
-function setCookie(field, value, time, sameSite) {
-    const date = new Date();
-    date.setDate(date.getTime() + (time * 24 * 60 * 60 * 1000));
-    let expires = "expires=" + date.toUTCString();
-    document.cookie = `${field}=${value}; ${expires}; path=/; sameSite=${sameSite}`;
-}
-
-function deleteCookie(field) {
-    setCookie(field, null, 0, 'Lax');
-}
-
-function getCookie(field) {
-    const decoded = decodeURIComponent(document.cookie);
-
-    return decoded.split('; ').find((cookie) => cookie.startsWith(`${field}=`))?.split('=')[1];
-}
-
-const API_URL = "http://localhost:5000/";
-// const API_URL = "http://siimonl.me/api/";
 const KEYWORD_DATALIST = document.querySelector('#all-keywords');
-const KEYWORD_DELIMITER = "-";
 const SEARCH_FORM = document.querySelector('#search-form');
 const SELECTED_KEYWORDS = document.querySelector('#selected-keywords');
 const RESULTS_DIV = document.querySelector('#results')
-let username = getCookie('username');
-let password = getCookie('password');
 
 async function createKeywordList() {
-    let response = await fetch(`${API_URL}api/keywords`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    });
+    // Get a full list of every used keyword for autofill purposes
+    // Might limit to 'x most popular keywords' in the future if keyword amount grows too big
+    const keywords = await getKeywordList();
 
-    if (response.ok) {
-        let keywords = await response.json();
+    if (keywords) {
         for (let i = 0; i < keywords.length; i++) {
             KEYWORD_DATALIST.innerHTML += `<option value=${keywords[i]}>`;
         }
-    } else {
-        console.log("Error loading keyword list. " + response.status + ": " + response.body.error);
-        return null;
     }
-
 }
 
-
 function createCard(data) {
+    // Create a card that gets displayed on screen from data gotten from the server
     let tagHTML = '';
     for (let i = 0; i < data.tags.length; i++) {
         tagHTML += `<div class="tag">${data.tags[i]}</div>`;
@@ -65,11 +25,10 @@ function createCard(data) {
     const card = document.createElement("div");
     card.classList.add('card');
     card.id = data.id.toString();
-    card.innerHTML = `<div class=\"card-top\"><img src=\"${data.link}\" alt=\"${data.link}\"><div class=\"card-row\"><div class=\"tags\">${tagHTML}</div><div class=\"likes-container\"><p class=\"likes icon-left\">${data.likes}</p></div></div></div><div class=\"card-bottom\"><div class=\"card-buttons\"><a class=\"open-image icon-left\" href=\"${data.link}\" target=\"_blank\"></a><button class=\"copy-link icon-left\" onclick=\"copyToClipboard(\'${data.link}\')\"></button></div><p class=\"date\">${data.date}</p></div>`;
+    card.innerHTML = `<div class=\"card-top\"><img src=\"${data.link}\" alt=\"${data.link}\"><div class=\"card-row\"><div class=\"tags\">${tagHTML}</div><div class=\"likes-container\"><p class=\"likes icon-left\" onclick=\"throttle(toggleLike, 1000)(this);\">${data.likes}</p></div></div></div><div class=\"card-bottom\"><div class=\"card-buttons\"><a class=\"open-image icon-left button\" href=\"${data.link}\" target=\"_blank\"></a><button class=\"copy-link icon-left button\" onclick=\"copyToClipboard(\'${data.link}\')\"></button></div><p class=\"date\">${data.date}</p></div>`;
 
     return card;
 }
-
 
 async function getQueryResults(searchParams) {
     let response = await fetch(`${API_URL}search?${searchParams}`, {
@@ -87,21 +46,8 @@ async function getQueryResults(searchParams) {
     }
 }
 
-async function addSbuote(data) {
-    //Adds a sbuote to the internal database
-    let response = await fetch(`${API_URL}post`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    });
-
-    return response.status;
-}
-
-function updateLikeCount(id, newValue) {
-
+async function updateLikeCount(id, value) {
+    // POST request to server to add a like
 }
 
 
@@ -114,22 +60,26 @@ function updateResults(resultArray) {
     }
 }
 
+function toggleLike(element) {
+    let added = element.classList.toggle('active');
+    element.innerText = `${parseInt(element.innerText) + (added ? 1 : -1)}`;
+    updateLikeCount();
+}
+
 // Custom handling for the form submission
 SEARCH_FORM.addEventListener('submit', async e => {
     e.preventDefault();
-    console.log('submitted');
 
     if (!SEARCH_FORM.checkValidity()) {
-        console.log('invalid!!!');
         return false;
-    }
+    };
 
     let formData = new FormData(SEARCH_FORM);
     let keywords = Array.from(SELECTED_KEYWORDS.children).map((value, _i) => {
         return value.innerText;
-    }).join(KEYWORD_DELIMITER);
+    });
 
-    formData.set("keywords", keywords);
+    formData.set("keywords", keywords.join(KEYWORD_DELIMITER));
     formData.set("page", '1');
     formData.set("extra", formData.get("extra").replace(' ', '_'));
 
@@ -169,7 +119,6 @@ document.querySelector('#keywords').addEventListener('change', e => {
 
 // Shake animation on text fields if something's incorrect
 document.querySelectorAll('input[type=text]').forEach((node, i) => node.addEventListener('invalid', e => {
-    console.log('trigger invalid');
     e.target.classList.remove('shake-anim');
     void e.target.offsetWidth;
     e.target.classList.add('shake-anim');

@@ -1,3 +1,9 @@
+@media only screen and (min-width: 1201px) {
+    .search {
+        min-width: 30rem;
+    }
+}
+
 @media only screen and (max-width: 1200px) {
     .content {
         display: block;
@@ -14,17 +20,6 @@ input:invalid {
     border: solid 0.3rem #be0000;
 }
 
-/* These styles are required to make icons render reliably */
-.icon-left::before,
-.icon-right::after {
-    font-family: "Font Awesome 5 Free";
-    display: inline-block;
-    text-rendering: auto;
-    font-variant: normal;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-}
-
 select.sorting {
     background-color: var(--clr-08dp);
     font-size: 1.6rem;
@@ -33,6 +28,11 @@ select.sorting {
     border-radius: 0.3rem;
     margin: 0.4rem 0;
     padding: 0.5rem;
+}
+
+.search.icon-right::after {
+    content: "\f002";
+    font-weight: 900;
 }
 
 .results {
@@ -110,7 +110,8 @@ select.sorting {
 
 .likes {
     color: var(--clr-white);
-    font-size: 2.5rem;
+    font-size: 2rem;
+    text-align: center;
 
     display: flex;
     align-items: center;
@@ -123,11 +124,16 @@ select.sorting {
 
 .icon-left.likes::before {
     margin-right: 0.6rem;
-    font-size: 2.1rem;
+    font-size: 2rem;
     font-weight: 400;
     color: var(--clr-white);
     content: "\f004";
     transition: all 0.2s ease-in-out;
+}
+
+.icon-left.active.likes::before {
+    font-weight: 900;
+    color: #ff0000;
 }
 
 .card-bottom {
@@ -185,10 +191,6 @@ select.sorting {
     border: 0.2rem solid var(--clr-primary);
 }
 
-.card-buttons>*:hover::before {
-    color: var(--clr-primary);
-}
-
 .open-image.icon-left::before {
     content: "\f35d";
     font-weight: 600;
@@ -199,4 +201,9 @@ select.sorting {
     content: "\f328";
     font-weight: 400;
     color: var(--clr-white);
+}
+
+.open-image.icon-left:hover::before,
+.copy-link.icon-left:hover::before {
+    color: var(--clr-primary);
 }

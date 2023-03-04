@@ -16,10 +16,68 @@
     --clr-24dp: #212121;
 }
 
+/* These styles are required to make icons render reliably */
+.icon-left::before,
+.icon-right::after {
+    font-family: "Font Awesome 5 Free";
+    display: inline-block;
+    text-rendering: auto;
+    font-variant: normal;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+}
+
 html {
     font-family: 'Ubuntu', sans-serif;
     font-size: 10px;
     background-color: var(--clr-primary);
+}
+
+a {
+    text-decoration: none;
+    color: var(--clr-white);
+}
+
+nav ul {
+    display: flex;
+    gap: 6rem;
+    list-style: none;
+    padding-left: 0;
+}
+
+nav li {
+    cursor: pointer;
+    box-sizing: border-box;
+    border: 0.2rem solid #00000000;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+}
+
+nav li:hover,
+nav li:focus {
+    outline: none;
+    border: 0.2rem solid var(--clr-white);
+}
+
+.sign-out.icon-left::before {
+    content: "\f2f5";
+    font-weight: 900;
+    margin-right: 0.5rem;
+    color: var(--clr-white);
+}
+
+.create.icon-left::before {
+    content: "\f0fe";
+    font-weight: 900;
+    margin-right: 0.5rem;
+    color: var(--clr-white);
+}
+
+.search.icon-left::before {
+    content: "\f002";
+    font-weight: 900;
+    margin-right: 0.5rem;
+    color: var(--clr-white);
 }
 
 body {
@@ -31,6 +89,7 @@ body {
 header {
     background-color: var(--clr-12dp);
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     gap: 2rem;
@@ -44,7 +103,7 @@ header {
     gap: 4rem;
     align-items: flex-start;
 
-    padding: 7rem 2rem 40rem 2rem;
+    padding: 4rem 2rem 40rem 2rem;
 }
 
 form {
@@ -56,6 +115,7 @@ form {
 .label {
     font-size: 1.7rem;
     margin-bottom: 0.3rem;
+    margin-left: 0.5rem;
 }
 
 input {
@@ -74,13 +134,14 @@ input {
 
 input:focus {
     outline: none;
+    border-color: #696969;
 }
 
 .keyword-searchbar {
     position: relative;
 }
 
-.search.icon-right::after {
+.keywords.icon-right::after {
     cursor: pointer;
     box-sizing: border-box;
     position: absolute;
@@ -89,8 +150,6 @@ input:focus {
     bottom: 0;
     display: flex;
     align-items: center;
-    content: "\f002";
-    font-weight: 900;
     font-size: 1.5rem;
     color: var(--clr-white);
     border-top-right-radius: 0.3rem;
@@ -104,7 +163,7 @@ input:focus {
     gap: 0.4rem;
 
     overflow: auto;
-    width: 30rem;
+    /* width: 30rem; */
 
     margin: 0.5rem 0;
 }
@@ -147,6 +206,13 @@ input:focus {
     padding: 0.4rem 2rem;
 }
 
+.submit:focus {
+    outline: none;
+    box-shadow: 0rem 0rem 0.8rem 0.1rem #00000090;
+    background-color: var(--clr-white);
+    color: var(--clr-primary);
+}
+
 .button {
     cursor: pointer;
     width: fit-content;
@@ -169,14 +235,9 @@ input:focus {
     color: var(--clr-primary);
 }
 
-.hamburger.icon-left::before {
-    cursor: pointer;
-    content: "\f0c9";
-    font-weight: 900;
-    font-size: 3.4rem;
-}
-
-.search.icon-right:hover::after {
+.keywords.icon-right:hover::after,
+.keywords.icon-right:focus::after {
+    outline: none;
     background-color: var(--clr-white);
     color: var(--clr-08dp);
 }

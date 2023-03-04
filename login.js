@@ -1,30 +1,4 @@
 
-
-
-function setCookie(field, value, time, sameSite) {
-    const date = new Date();
-    date.setDate(date.getTime() + (time * 24 * 60 * 60 * 1000));
-    let expires = "expires=" + date.toUTCString();
-    document.cookie = `${field}=${value}; ${expires}; path=/; sameSite=${sameSite}`;
-}
-
-function hasCookie(field) {
-    const decoded = decodeURIComponent(document.cookie);
-
-    return decoded.split('; ').some((cookie) => cookie.startsWith(`${field}=`));
-}
-
-// Redirect to the search page if username and valid password are cached.
-if (hasCookie('username') && hasCookie('password')) {
-    const response = await fetch(`${API_URL}/login?user=${getCookie('username')};${getCookie('password')}`);
-
-    if (response.ok) {
-        window.location.replace(`${window.location}search`);
-    }
-}
-
-const API_URL = "http://localhost:5000/";
-// const API_URL = "http://siimonl.me/api/";
 const LOGIN_FORM = document.querySelector('#login-form');
 const LOGIN_ERROR = document.querySelector('#login-error');
 
@@ -41,13 +15,14 @@ LOGIN_FORM.addEventListener('submit', async e => {
     let formData = new FormData(LOGIN_FORM);
     formData.set('pass', btoa(formData.get('pass')));
 
-    const response = await fetch(`${API_URL}/login?${new URLSearchParams(formData)}`);
+    // const response = await fetch(`${API_URL}/login?${new URLSearchParams(formData)}`);
+    const response = { ok: true };
 
     if (response.ok) {
         // Server confirmed that the password is valid
-        setCookie('username', formData.get('user'), 200);
-        setCookie('password', formData.get('pass'), 200);
-        window.location.replace(`${window.location}search`);
+        setCookie('username', formData.get('user'), 200, 'Lax');
+        setCookie('password', formData.get('pass'), 200, 'Lax');
+        window.location.replace(`${window.location.href.split('?')[0]}search`);
     } else {
         if (response.status == 401) {
             LOGIN_ERROR.innerText = 'Invalid Password.';

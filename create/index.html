@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Sbuote</title>
+    <link rel="stylesheet" href="./../css/style.css">
+    <link rel="stylesheet" href="./../css/create.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+        integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="./../globals.js"></script>
+    <script>savedCredentialCheck();</script>
+    <script defer src="./create.js"></script>
+</head>
+
+<body>
+    <datalist id="all-keywords">
+    </datalist>
+    <header>
+        <h1>Sbuotes Database</h1>
+        <nav>
+            <ul class="nav-menu">
+                <li class="icon-left search"><a href="./../search/">Search</a></li>
+                <li class="icon-left sign-out" onclick="signOut();">Sign Out</li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <form autocomplete="off" class="create-form" id="create-form">
+            <p class="label">Discord Link of Sbuote</p>
+            <input name="link" type="text" id="sbuote-link" placeholder="link" required
+                pattern="https:\/\/cdn\.discordapp\.com\/attachments\/\d+\/\d+\/.+">
+            <p class="link error" id="link-error"></p>
+            <div class="selected-keywords" id="selected-keywords"></div>
+            <p class="label">Add Keywords</p>
+            <div class="keyword-searchbar">
+                <input name="keywords" type="text" placeholder="Search..." id="keywords" class="keywords"
+                    list="all-keywords" pattern="[a-zA-Z]+" maxlength="20">
+                <div class="keywords create icon-right" id="create-icon"></div>
+            </div>
+
+            <div class="submit-container">
+                <button type="submit" class="submit button" id="submit-button">Submit</button>
+                <p id="create-error" class="error"></p>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
