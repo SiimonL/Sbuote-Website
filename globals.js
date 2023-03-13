@@ -1,5 +1,4 @@
-const API_URL = "http://127.0.0.1:5000/api";
-// const API_URL = "http://siimonl.me/api";
+const API_URL = "http://api.siimonl.me";
 const KEYWORD_DELIMITER = "-";
 
 function copyToClipboard(text) {
@@ -12,29 +11,6 @@ function copyToClipboard(text) {
     return successful;
 }
 
-function setCookie(field, value, timeDays, sameSite) {
-    const date = new Date();
-    date.setDate(date.getTime() + (timeDays * 24 * 60 * 60 * 1000));
-    let expires = "expires=" + date.toGMTString();
-    document.cookie = `${field}=${value}; ${expires}; path=/; sameSite=${sameSite}; Secure;`;
-}
-
-function hasCookie(field) {
-    const decoded = decodeURIComponent(document.cookie);
-
-    return decoded.split('; ').some((cookie) => cookie.startsWith(`${field}=`));
-}
-
-function getCookie(field) {
-    const decoded = decodeURIComponent(document.cookie);
-
-    return decoded.split('; ').find((cookie) => cookie.startsWith(`${field}=`))?.split('=')[1];
-}
-
-function deleteCookie(field) {
-    document.cookie = `${field}=; expires=Thu, 01 Jan 1970 00: 00: 01 GMT; path=/; sameSite=Lax`;
-}
-
 // Redirects away from the login page if credentials are alreay saved in cookies
 async function loginPageRedirectCheck() {
     // Redirect to the search page if username and valid password are cached.
@@ -45,7 +21,7 @@ async function loginPageRedirectCheck() {
     // const response = { ok: true };
 
     if (response.ok) {
-        window.location.replace(`${window.location.href.split('?')[0]}/search`);
+        window.location.replace(`${window.location.origin}/search`);
     }
 }
 
@@ -58,7 +34,7 @@ async function savedCredentialCheck() {
     // const response = { ok: true };
 
     if (!response.ok) {
-        window.location.replace(`${window.location.origin}/front-end/`);
+        window.location.replace(`${window.location.origin}`);
     }
 }
 
@@ -99,5 +75,5 @@ async function signOut() {
         credentials: 'include',
         method: 'POST'
     });
-    window.location.replace(`${window.location.origin}/front-end/`);
+    window.location.replace(`${window.location.origin}`);
 }

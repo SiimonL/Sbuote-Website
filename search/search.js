@@ -1,7 +1,7 @@
 const KEYWORD_DATALIST = document.querySelector('#all-keywords');
 const SEARCH_FORM = document.querySelector('#search-form');
 const SELECTED_KEYWORDS = document.querySelector('#selected-keywords');
-const RESULTS_DIV = document.querySelector('#results')
+const RESULTS_DIV = document.querySelector('#results');
 
 async function createKeywordList() {
     // Get a full list of every used keyword for autofill purposes

@@ -1,7 +1,7 @@
 
 const KEYWORD_DATALIST = document.querySelector('#all-keywords');
 const SELECTED_KEYWORDS = document.querySelector('#selected-keywords');
-const CREATE_FORM = document.querySelector('#create-form')
+const CREATE_FORM = document.querySelector('#create-form');
 
 async function createKeywordList() {
     // Get a full list of every used keyword for autofill purposes
@@ -81,7 +81,7 @@ CREATE_FORM.addEventListener('submit', async e => {
 
     if (status == 200) {
         window.alert('Added sbuote.');
-        window.location.replace(`${window.location.origin}/front-end/search`);
+        window.location.replace(`${window.location.origin}/search`);
     } else {
         window.alert('Failed to add sbuote.');
     }

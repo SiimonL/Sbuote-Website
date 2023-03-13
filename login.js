@@ -29,7 +29,7 @@ LOGIN_FORM.addEventListener('submit', async e => {
 
     if (response.ok) {
         // Server confirmed that the password is valid
-        window.location.replace(`${window.location.href.split('?')[0]}/search`);
+        window.location.replace(`${window.location.origin}/search`);
     } else {
         if (response.status == 403) {
             LOGIN_ERROR.innerText = 'Invalid Password.';
