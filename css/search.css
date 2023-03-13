@@ -37,11 +37,10 @@ select.sorting {
 
 .results {
     margin-top: 5rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: stretch;
-    flex-wrap: wrap;
-    gap: 4rem;
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+    gap: 2rem;
     border: 1px red solid;
 }
 
@@ -52,20 +51,30 @@ select.sorting {
     background-color: var(--clr-03dp);
     padding: 1rem 4rem 0rem 4rem;
     box-shadow: 0 0 1rem 0.2rem #000000;
-    width: 40%;
+    /* width: 40%;
     max-width: 30%;
-    min-width: 17rem;
+    min-width: 17rem; */
     justify-content: space-between;
 
     transition: all 0.2s ease-in-out;
 }
 
+@media only screen and (max-width: 400px) {
+    .results {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 1rem 2rem 0rem 2rem;
+    }
+}
+
 .card img {
     box-sizing: border-box;
-    min-width: auto;
+    /* min-width: auto; */
 
     max-width: 100%;
-    height: auto;
+    /* height: auto; */
     max-height: 30rem;
     border: 0.2rem solid var(--clr-primary);
 }
