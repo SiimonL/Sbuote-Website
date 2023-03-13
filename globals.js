@@ -1,5 +1,5 @@
-const API_URL = "http://localhost:5000/";
-// const API_URL = "http://siimonl.me/api/";
+const API_URL = "http://127.0.0.1:5000/api";
+// const API_URL = "http://siimonl.me/api";
 const KEYWORD_DELIMITER = "-";
 
 function copyToClipboard(text) {
@@ -16,7 +16,7 @@ function setCookie(field, value, timeDays, sameSite) {
     const date = new Date();
     date.setDate(date.getTime() + (timeDays * 24 * 60 * 60 * 1000));
     let expires = "expires=" + date.toGMTString();
-    document.cookie = `${field}=${value}; ${expires}; path=/; sameSite=${sameSite}`;
+    document.cookie = `${field}=${value}; ${expires}; path=/; sameSite=${sameSite}; Secure;`;
 }
 
 function hasCookie(field) {
@@ -38,43 +38,44 @@ function deleteCookie(field) {
 // Redirects away from the login page if credentials are alreay saved in cookies
 async function loginPageRedirectCheck() {
     // Redirect to the search page if username and valid password are cached.
-    if (hasCookie('username') && hasCookie('password')) {
-        // const response = await fetch(`${API_URL}/login?user=${getCookie('username')};${getCookie('password')}`);
-        const response = { ok: true };
+    const response = await fetch(`${API_URL}/login`, {
+        credentials: 'include',
+        method: "POST",
+    });
+    // const response = { ok: true };
 
-        if (response.ok) {
-            window.location.replace(`${window.location.href.split('?')[0]}search`);
-        }
+    if (response.ok) {
+        window.location.replace(`${window.location.href.split('?')[0]}/search`);
     }
 }
 
 // Check on every page that redirects back to login page if credentials missing or not valid.
 async function savedCredentialCheck() {
-    if (hasCookie('username') && hasCookie('password')) {
-        // const response = await fetch(`${API_URL}/login?user=${getCookie('username')};${getCookie('password')}`);
-        const response = { ok: true };
+    const response = await fetch(`${API_URL}/login`, {
+        credentials: 'include',
+        method: "POST"
+    });
+    // const response = { ok: true };
 
-        if (!response.ok) {
-            window.location.replace(`${window.location.origin}/front-end/`);
-        }
-    } else {
+    if (!response.ok) {
         window.location.replace(`${window.location.origin}/front-end/`);
     }
 }
 
 async function getKeywordList() {
-    let response = await fetch(`${API_URL}api/keywords`, {
+    let response = await fetch(`${API_URL}/keywords`, {
+        credentials: 'include',
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         }
     });
 
+    let results = await response.json();
     if (response.ok) {
-        let keywords = await response.json();
-        return keywords;
+        return results;
     } else {
-        console.log(response.status + ": Error loading keyword list.");
+        console.log(results);
         return null;
     }
 }
@@ -93,8 +94,10 @@ const throttle = (func, limit) => {
     }
 }
 
-function signOut() {
-    deleteCookie('username');
-    deleteCookie('password');
-    window.location.replace(`${window.location.origin}/front-end/`)
+async function signOut() {
+    let response = await fetch(`${API_URL}/logout`, {
+        credentials: 'include',
+        method: 'POST'
+    });
+    window.location.replace(`${window.location.origin}/front-end/`);
 }

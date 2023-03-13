@@ -18,20 +18,21 @@ async function createKeywordList() {
 function createCard(data) {
     // Create a card that gets displayed on screen from data gotten from the server
     let tagHTML = '';
-    for (let i = 0; i < data.tags.length; i++) {
-        tagHTML += `<div class="tag">${data.tags[i]}</div>`;
+    for (let i = 0; i < data.keywords.length; i++) {
+        tagHTML += `<div class="tag">${data.keywords[i]}</div>`;
     }
 
     const card = document.createElement("div");
     card.classList.add('card');
     card.id = data.id.toString();
-    card.innerHTML = `<div class=\"card-top\"><img src=\"${data.link}\" alt=\"${data.link}\"><div class=\"card-row\"><div class=\"tags\">${tagHTML}</div><div class=\"likes-container\"><p class=\"likes icon-left\" onclick=\"throttle(toggleLike, 1000)(this);\">${data.likes}</p></div></div></div><div class=\"card-bottom\"><div class=\"card-buttons\"><a class=\"open-image icon-left button\" href=\"${data.link}\" target=\"_blank\"></a><button class=\"copy-link icon-left button\" onclick=\"copyToClipboard(\'${data.link}\')\"></button></div><p class=\"date\">${data.date}</p></div>`;
+    card.innerHTML = `<div class=\"card-top\"><img src=\"${data.link}\" alt=\"${data.link}\"><div class=\"card-row\"><div class=\"tags\">${tagHTML}</div><div class=\"likes-container\"><p class=\"likes icon-left\ ${data.hasLiked ? 'active' : ''}" onclick=\"throttle(toggleLike, 1000)(this, ${data.id});\">${data.likes}</p></div></div></div><div class=\"card-bottom\"><div class=\"card-buttons\"><a class=\"open-image icon-left button\" href=\"${data.link}\" target=\"_blank\"></a><button class=\"copy-link icon-left button\" onclick=\"copyToClipboard(\'${data.link}\')\"></button></div><p class=\"date\">${data.date.split('T')[0]}</p></div>`;
 
     return card;
 }
 
 async function getQueryResults(searchParams) {
-    let response = await fetch(`${API_URL}search?${searchParams}`, {
+    let response = await fetch(`${API_URL}/search?${searchParams}`, {
+        credentials: 'include',
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -46,8 +47,16 @@ async function getQueryResults(searchParams) {
     }
 }
 
-async function updateLikeCount(id, value) {
+async function updateLikeCount(id) {
     // POST request to server to add a like
+    let response = await fetch(`${API_URL}/like`, {
+        credentials: 'include',
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ sbuote: id })
+    })
 }
 
 
@@ -60,10 +69,10 @@ function updateResults(resultArray) {
     }
 }
 
-function toggleLike(element) {
+function toggleLike(element, id) {
     let added = element.classList.toggle('active');
     element.innerText = `${parseInt(element.innerText) + (added ? 1 : -1)}`;
-    updateLikeCount();
+    updateLikeCount(id);
 }
 
 // Custom handling for the form submission
@@ -80,12 +89,11 @@ SEARCH_FORM.addEventListener('submit', async e => {
     });
 
     formData.set("keywords", keywords.join(KEYWORD_DELIMITER));
-    formData.set("page", '1');
+    formData.set("page", 1);
     formData.set("extra", formData.get("extra").replace(' ', '_'));
 
     let data = await getQueryResults(new URLSearchParams(formData));
     updateResults(data);
-
 });
 
 // To Stop the form from submitting after pressing enter.

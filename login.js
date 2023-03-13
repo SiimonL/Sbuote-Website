@@ -5,26 +5,33 @@ const LOGIN_ERROR = document.querySelector('#login-error');
 // Custom handling for the form submission
 LOGIN_FORM.addEventListener('submit', async e => {
     e.preventDefault();
-    console.log('submitted');
 
     if (!LOGIN_FORM.checkValidity()) {
-        console.log('invalid!!!');
         return false;
     }
 
     let formData = new FormData(LOGIN_FORM);
-    formData.set('pass', btoa(formData.get('pass')));
 
-    // const response = await fetch(`${API_URL}/login?${new URLSearchParams(formData)}`);
-    const response = { ok: true };
+    const auth = {
+        user: formData.get('user'),
+        pass: window.btoa(formData.get('pass'))
+    }
+
+    const response = await fetch(`${API_URL}/login`, {
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(auth)
+    });
+    // const response = { ok: true };
 
     if (response.ok) {
         // Server confirmed that the password is valid
-        setCookie('username', formData.get('user'), 200, 'Lax');
-        setCookie('password', formData.get('pass'), 200, 'Lax');
-        window.location.replace(`${window.location.href.split('?')[0]}search`);
+        window.location.replace(`${window.location.href.split('?')[0]}/search`);
     } else {
-        if (response.status == 401) {
+        if (response.status == 403) {
             LOGIN_ERROR.innerText = 'Invalid Password.';
         } else {
             throw new Error(`HTTP error ${response.status}`);
@@ -56,7 +63,7 @@ document.querySelectorAll('input').forEach((node, _i) => node.addEventListener('
         errorField.innerText = `${e.target.id} must be at least ${minLen} characters long.`;
     } else if (e.target.value.length > maxLen) {
         errorField.innerText = `${e.target.id} can\t be longer than ${maxLen} characters.`;
-    } else if (e.target.value.match(/[^a-zA-Z1-9]+/g)) {
+    } else if (e.target.value.match(/[^a-zA-Z0-9]+/g)) {
         errorField.innerText = `${e.target.id} can only contain letters or numbers.`;
     }
 

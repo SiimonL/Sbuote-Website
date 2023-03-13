@@ -17,7 +17,8 @@ async function createKeywordList() {
 
 async function createSbuote(data) {
     //Adds a sbuote to the internal database
-    let response = await fetch(`${API_URL}post`, {
+    let response = await fetch(`${API_URL}/create`, {
+        credentials: 'include',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -69,14 +70,21 @@ CREATE_FORM.addEventListener('submit', async e => {
     }
 
     let keywords = Array.from(SELECTED_KEYWORDS.children).map((value, _i) => {
-        return value.innerText;
+        return value.innerText.toLowerCase();
     });
 
 
-    await createSbuote({
+    let status = await createSbuote({
         link: document.querySelector('#sbuote-link').value,
         keywords: keywords
     });
+
+    if (status == 200) {
+        window.alert('Added sbuote.');
+        window.location.replace(`${window.location.origin}/front-end/search`);
+    } else {
+        window.alert('Failed to add sbuote.');
+    }
 
 });
 
