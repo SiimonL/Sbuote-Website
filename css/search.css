@@ -41,7 +41,6 @@ select.sorting {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
     gap: 2rem;
-    border: 1px red solid;
 }
 
 .card {
@@ -51,9 +50,6 @@ select.sorting {
     background-color: var(--clr-03dp);
     padding: 1rem 4rem 0rem 4rem;
     box-shadow: 0 0 1rem 0.2rem #000000;
-    /* width: 40%;
-    max-width: 30%;
-    min-width: 17rem; */
     justify-content: space-between;
 
     transition: all 0.2s ease-in-out;
@@ -71,11 +67,8 @@ select.sorting {
 
 .card img {
     box-sizing: border-box;
-    /* min-width: auto; */
 
     max-width: 100%;
-    /* height: auto; */
-    max-height: 30rem;
     border: 0.2rem solid var(--clr-primary);
 }
 
