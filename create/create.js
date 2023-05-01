@@ -1,6 +1,7 @@
 
 const KEYWORD_DATALIST = document.querySelector('#all-keywords');
 const SELECTED_KEYWORDS = document.querySelector('#selected-keywords');
+const IMAGE_PREVIEW = document.querySelector('#image-preview');
 const CREATE_FORM = document.querySelector('#create-form');
 
 async function createKeywordList() {
@@ -42,6 +43,10 @@ CREATE_FORM.addEventListener('keydown', e => {
 
 document.querySelector('#create-icon').addEventListener('click', e => {
     document.activeElement.dispatchEvent(new Event('change'));
+});
+
+document.querySelector('#sbuote-link').addEventListener('change', e => {
+    IMAGE_PREVIEW.innerHTML = `<img src="${e.target.value}" class="image-preview">`;
 });
 
 // Adds a keyword to the selected list above the search bar after a 'change' event gets triggered

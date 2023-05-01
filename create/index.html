@@ -33,8 +33,9 @@
         <form autocomplete="off" class="create-form" id="create-form">
             <p class="label">Discord Link of Sbuote</p>
             <input name="link" type="text" id="sbuote-link" placeholder="link" required
-                pattern="https:\/\/cdn\.discordapp\.com\/attachments\/\d+\/\d+\/.+">
+                pattern="https:\/\/(cdn|media)\.discordapp\.(com|net)\/attachments\/\d+\/\d+\/.+">
             <p class="link error" id="link-error"></p>
+            <div class="image-preview" id="image-preview"></div>
             <div class="selected-keywords" id="selected-keywords"></div>
             <p class="label">Add Keywords</p>
             <div class="keyword-searchbar">

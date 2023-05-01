@@ -19,6 +19,10 @@ form {
     }
 }
 
+.image-preview {
+    max-width: 100%;
+}
+
 .create.icon-right::after {
     content: "\f067";
     font-weight: 900;
