@@ -75,6 +75,11 @@ function toggleLike(element, id) {
     updateLikeCount(id);
 }
 
+async function preload() {
+    let data = await getQueryResults('keywords=&sort=best&extra=&page=1');
+    updateResults(data);
+}
+
 // Custom handling for the form submission
 SEARCH_FORM.addEventListener('submit', async e => {
     e.preventDefault();
@@ -134,3 +139,4 @@ document.querySelectorAll('input[type=text]').forEach((node, i) => node.addEvent
 
 
 createKeywordList();
+preload();
