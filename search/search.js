@@ -1,5 +1,6 @@
 const KEYWORD_DATALIST = document.querySelector('#all-keywords');
 const SEARCH_FORM = document.querySelector('#search-form');
+const SUBMIT_BUTTON = document.querySelector('#form-submit');
 const SELECTED_KEYWORDS = document.querySelector('#selected-keywords');
 const RESULTS_DIV = document.querySelector('#results');
 
@@ -97,8 +98,10 @@ SEARCH_FORM.addEventListener('submit', async e => {
     formData.set("page", 1);
     formData.set("extra", formData.get("extra").replace(' ', '_'));
 
+    oldHTML = toggleLoader(SUBMIT_BUTTON, '');
     let data = await getQueryResults(new URLSearchParams(formData));
     updateResults(data);
+    toggleLoader(SUBMIT_BUTTON, oldHTML);
 });
 
 // To Stop the form from submitting after pressing enter.

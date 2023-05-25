@@ -1,4 +1,4 @@
-const API_URL = "http://api.siimonl.me";
+const API_URL = "http://127.0.0.1:5000";
 const KEYWORD_DELIMITER = "-";
 
 function copyToClipboard(text) {

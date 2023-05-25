@@ -3,7 +3,7 @@
 }
 
 form {
-    width: 40vw;
+    width: 40rem;
     margin: 0 4rem;
 }
 
@@ -15,7 +15,7 @@ form {
 
 @media only screen and (min-width: 900px) {
     form {
-        width: 40rem;
+        width: 50rem;
     }
 }
 

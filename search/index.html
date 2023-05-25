@@ -7,6 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sboute Database</title>
+
+    <meta content="Sbuote Database" property="og:title" />
+    <meta content="Search the sbuote database." property="og:description" />
+    <meta content="https://www.sbuotes.site" property="og:url" />
+    <meta content="https://cdn.discordapp.com/attachments/746472433904779316/1106037309368958976/icon.png"
+        property="og:image" />
+
     <link rel="icon" href="./../images/icon.png">
     <link rel="stylesheet" href="./../css/style.css">
     <link rel="stylesheet" href="./../css/search.css">
@@ -22,7 +29,7 @@
     <datalist id="all-keywords">
     </datalist>
     <header>
-        <h1>Sbuotes Database</h1>
+        <h1>Sbuote Database</h1>
         <nav>
             <ul class="nav-menu">
                 <li class="icon-left create"><a href="./../create/">Create Sbuote</a></li>
@@ -34,7 +41,7 @@
         <div class="search" id="search">
             <form autocomplete="off" class="search-form" id="search-form">
                 <div class="selected-keywords" id="selected-keywords"></div>
-                <p class="label">Filter by Keyword</p>
+                <p class="label">Filter by Tags</p>
                 <div class="keyword-searchbar">
                     <input name="keywords" type="text" placeholder="Search..." id="keywords" class="keywords"
                         list="all-keywords" pattern="[a-zA-Z0-9]+" maxlength="20">

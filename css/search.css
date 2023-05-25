@@ -31,7 +31,7 @@ select.sorting {
 }
 
 .search.icon-right::after {
-    content: "\f002";
+    content: "\f067";
     font-weight: 900;
 }
 
@@ -55,7 +55,7 @@ select.sorting {
     transition: all 0.2s ease-in-out;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
     .results {
         grid-template-columns: 1fr;
     }

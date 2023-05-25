@@ -6,6 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a Sbuote</title>
+
+    <meta content="Sbuote Database" property="og:title" />
+    <meta content="Add a new sbuotes." property="og:description" />
+    <meta content="https://www.sbuotes.site/create" property="og:url" />
+    <meta content="https://cdn.discordapp.com/attachments/746472433904779316/1106037309368958976/icon.png"
+        property="og:image" />
+
     <link rel="icon" href="./../images/icon.png">
     <link rel="stylesheet" href="./../css/style.css">
     <link rel="stylesheet" href="./../css/create.css">
@@ -21,7 +28,7 @@
     <datalist id="all-keywords">
     </datalist>
     <header>
-        <h1>Sbuotes Database</h1>
+        <h1>Sbuote Database</h1>
         <nav>
             <ul class="nav-menu">
                 <li class="icon-left search"><a href="./../search/">Search</a></li>
@@ -36,11 +43,13 @@
                 pattern="https:\/\/(cdn|media)\.discordapp\.(com|net)\/attachments\/\d+\/\d+\/.+">
             <p class="link error" id="link-error"></p>
             <div class="image-preview" id="image-preview"></div>
+            <p class="label">Transcript <em style="font-size: 1rem;">Optional</em></p>
+            <textarea name="transcript" id="transcript" maxlength="255"></textarea>
             <div class="selected-keywords" id="selected-keywords"></div>
             <p class="label">Add Keywords</p>
             <div class="keyword-searchbar">
-                <input name="keywords" type="text" placeholder="Search..." id="keywords" class="keywords"
-                    list="all-keywords" pattern="[a-zA-Z0-9]+" maxlength="20">
+                <input name="keywords" type="text" id="keywords" class="keywords" list="all-keywords"
+                    pattern="[a-zA-Z0-9]+" maxlength="20">
                 <div class="keywords create icon-right" id="create-icon"></div>
             </div>
 

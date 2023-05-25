@@ -9,6 +9,7 @@ async function createKeywordList() {
     // Might limit to 'x most popular keywords' in the future if keyword amount grows too big
     const keywords = await getKeywordList();
 
+    KEYWORD_DATALIST.innerHTML = ''
     if (keywords) {
         for (let i = 0; i < keywords.length; i++) {
             KEYWORD_DATALIST.innerHTML += `<option value=${keywords[i]}>`;
@@ -81,7 +82,8 @@ CREATE_FORM.addEventListener('submit', async e => {
 
     let status = await createSbuote({
         link: document.querySelector('#sbuote-link').value,
-        keywords: keywords
+        keywords: keywords,
+        extra: document.querySelector('#transcript').value
     });
 
     if (status == 200) {
