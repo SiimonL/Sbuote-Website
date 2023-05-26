@@ -68,9 +68,11 @@ nav li {
 }
 
 nav li:hover,
-nav li:focus {
+nav li:focus,
+a:focus {
     outline: none;
-    border: 0.2rem solid var(--clr-white);
+    text-decoration: underline;
+    /* border: 0.2rem solid var(--clr-white); */
 }
 
 .sign-out.icon-left::before {
@@ -221,13 +223,6 @@ textarea:focus {
     padding: 0.4rem 2rem;
 }
 
-.submit:focus {
-    outline: none;
-    box-shadow: 0rem 0rem 0.8rem 0.1rem #00000090;
-    background-color: var(--clr-white);
-    color: var(--clr-primary);
-}
-
 .button {
     cursor: pointer;
     width: fit-content;
@@ -236,24 +231,13 @@ textarea:focus {
 
     border-radius: 0.3rem;
     border: var(--clr-primary) solid 0.3rem;
-    transition: all 0.2s ease-in;
 }
 
-.button::after,
-.button::before {
-    transition: all 0.2s ease-in;
-}
-
-.button:hover {
-    box-shadow: 0rem 0rem 0.8rem 0.1rem #00000090;
-    background-color: var(--clr-white);
-    color: var(--clr-primary);
-}
-
-.button.loading:hover,
-.button.loading:focus {
-    background-color: var(--clr-16dp);
-    color: var(--clr-white);
+.button:hover:enabled,
+.button:focus:enabled {
+    outline: none;
+    text-decoration: underline;
+    border-color: #9d9d9d;
 }
 
 .keywords.icon-right:hover::after,
@@ -287,6 +271,43 @@ footer>p {
     -moz-animation: shake 1s cubic-bezier(0, 1, 0, 0) 0s 1 normal;
     -ms-animation: shake 1s cubic-bezier(0, 1, 0, 0) 0s 1 normal;
     animation: shake 1s cubic-bezier(0, 1, 0, 0) 0s 1 normal;
+}
+
+.loader-container {
+    max-width: fit-content;
+    max-height: fit-content;
+
+    position: relative;
+}
+
+.loader {
+    z-index: -1;
+    position: absolute;
+    height: 70%;
+    aspect-ratio: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    box-sizing: border-box;
+    aspect-ratio: 1;
+
+
+    border-radius: 50%;
+    border: var(--clr-white) 0.3rem solid;
+    border-bottom-color: transparent;
+
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }
 
 @-webkit-keyframes shake {

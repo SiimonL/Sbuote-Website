@@ -77,8 +77,12 @@ function toggleLike(element, id) {
 }
 
 async function preload() {
+    // Changes the text on the button into a spinner.
+    toggleButtonSpinner(SUBMIT_BUTTON);
     let data = await getQueryResults('keywords=&sort=best&extra=&page=1');
     updateResults(data);
+    // Toggles spinner back into text.
+    toggleButtonSpinner(SUBMIT_BUTTON);
 }
 
 // Custom handling for the form submission
@@ -88,6 +92,8 @@ SEARCH_FORM.addEventListener('submit', async e => {
     if (!SEARCH_FORM.checkValidity()) {
         return false;
     };
+    // Changes the text on the button into a spinner.
+    toggleButtonSpinner(SUBMIT_BUTTON);
 
     let formData = new FormData(SEARCH_FORM);
     let keywords = Array.from(SELECTED_KEYWORDS.children).map((value, _i) => {
@@ -98,10 +104,10 @@ SEARCH_FORM.addEventListener('submit', async e => {
     formData.set("page", 1);
     formData.set("extra", formData.get("extra").replace(' ', '_'));
 
-    oldHTML = toggleLoader(SUBMIT_BUTTON, '');
     let data = await getQueryResults(new URLSearchParams(formData));
     updateResults(data);
-    toggleLoader(SUBMIT_BUTTON, oldHTML);
+    // Toggles spinner back into text.
+    toggleButtonSpinner(SUBMIT_BUTTON);
 });
 
 // To Stop the form from submitting after pressing enter.

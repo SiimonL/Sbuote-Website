@@ -32,8 +32,8 @@
         <h1>Sbuote Database</h1>
         <nav>
             <ul class="nav-menu">
-                <li class="icon-left create"><a href="./../create/">Create Sbuote</a></li>
-                <li class="icon-left sign-out" onclick="signOut();">Sign Out</li>
+                <li class="icon-left create" tabindex="0"><a href="./../create/" tabindex="-1">Create Sbuote</a></li>
+                <li class="icon-left sign-out" onclick="signOut();" tabindex="0">Sign Out</li>
             </ul>
         </nav>
     </header>
@@ -58,10 +58,13 @@
                     Additional words
                     <em style="font-size: 1rem;">Optional</em>
                 </p>
-                <input name="extra" type="text" id="transcript" pattern="[a-zA-Z\s]*">
+                <textarea name="extra" type="text" id="transcript" pattern="[a-zA-Z0-9\s]*" maxlength="255"></textarea>
 
                 <div class="submit-container">
-                    <button type="submit" class="submit button" id="form-submit">Search</button>
+                    <div class="loader-container">
+                        <span class="loader"></span>
+                        <button type="submit" class="submit button" id="form-submit">Search</button>
+                    </div>
                 </div>
             </form>
 

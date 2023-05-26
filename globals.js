@@ -11,6 +11,20 @@ function copyToClipboard(text) {
     return successful;
 }
 
+function toggleButtonSpinner(clickedButton) {
+    const buttonSpinner = clickedButton.parentElement.querySelector('.loader');
+
+    if (clickedButton.disabled) {
+        buttonSpinner.style.zIndex = '-1';
+        clickedButton.removeAttribute('style');
+        clickedButton.disabled = false;
+    } else {
+        clickedButton.disabled = true;
+        clickedButton.style.color = 'transparent';
+        buttonSpinner.style.zIndex = '1';
+    }
+}
+
 // Redirects away from the login page if credentials are alreay saved in cookies
 async function loginPageRedirectCheck() {
     // Redirect to the search page if username and valid password are cached.

@@ -1,4 +1,4 @@
-
+const LOGIN_BUTTON = document.querySelector('#submit-button');
 const LOGIN_FORM = document.querySelector('#login-form');
 const LOGIN_ERROR = document.querySelector('#login-error');
 
@@ -9,6 +9,8 @@ LOGIN_FORM.addEventListener('submit', async e => {
     if (!LOGIN_FORM.checkValidity()) {
         return false;
     }
+    // Changes the text on the button into a spinner.
+    toggleButtonSpinner(LOGIN_BUTTON);
 
     let formData = new FormData(LOGIN_FORM);
 
@@ -25,8 +27,9 @@ LOGIN_FORM.addEventListener('submit', async e => {
         method: "POST",
         body: JSON.stringify(auth)
     });
-    // const response = { ok: true };
 
+    // Toggles spinner back into text.
+    toggleButtonSpinner(LOGIN_BUTTON);
     if (response.ok) {
         // Server confirmed that the password is valid
         window.location.replace(`${window.location.origin}/search`);

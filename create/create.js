@@ -3,6 +3,7 @@ const KEYWORD_DATALIST = document.querySelector('#all-keywords');
 const SELECTED_KEYWORDS = document.querySelector('#selected-keywords');
 const IMAGE_PREVIEW = document.querySelector('#image-preview');
 const CREATE_FORM = document.querySelector('#create-form');
+const SUBMIT_BUTTON = document.querySelector('#submit-button');
 
 async function createKeywordList() {
     // Get a full list of every used keyword for autofill purposes
@@ -74,7 +75,8 @@ CREATE_FORM.addEventListener('submit', async e => {
     if (!window.confirm("Are you sure you want to continue?")) {
         return false;
     }
-
+    // Changes the text on the button into a spinner.
+    toggleButtonSpinner(SUBMIT_BUTTON);
     let keywords = Array.from(SELECTED_KEYWORDS.children).map((value, _i) => {
         return value.innerText.toLowerCase();
     });
@@ -86,6 +88,8 @@ CREATE_FORM.addEventListener('submit', async e => {
         extra: document.querySelector('#transcript').value
     });
 
+    // Toggles spinner back into text.
+    toggleButtonSpinner(SUBMIT_BUTTON);
     if (status == 200) {
         window.alert('Added sbuote.');
         window.location.replace(`${window.location.origin}/search`);
